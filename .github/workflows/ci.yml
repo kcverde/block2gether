@@ -40,4 +40,7 @@ jobs:
       - run: npm run test:native
       - run: npm run build
       - run: codesign --verify --deep --strict dist/block2gether.app
-      - run: xcrun lipo -verify_arch arm64 x86_64 dist/block2gether.app/Contents/MacOS/block2gether
+      - run: |
+          for arch in arm64 x86_64; do
+            xcrun lipo dist/block2gether.app/Contents/MacOS/block2gether -verify_arch "$arch"
+          done
