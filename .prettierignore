@@ -1,0 +1,8 @@
+.build/
+dist/
+node_modules/
+package-lock.json
+*.swift
+*.sh
+*.icns
+*.png

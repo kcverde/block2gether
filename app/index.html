@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>block2gether</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="grain"></div>
+    <div id="app" class="is-menu">
+      <header class="topbar">
+        <a
+          class="wordmark"
+          href="#"
+          id="home-button"
+          aria-label="block2gether home"
+          ><span class="brand-icon"><i></i><i></i><i></i><i></i></span
+          ><span class="brand-name">block<b>2</b>gether</span></a
+        >
+        <div class="toolbar">
+          <button
+            class="icon-button"
+            id="sound-button"
+            aria-label="Mute audio"
+            title="Sound · M"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+              <path
+                class="sound-waves"
+                d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"
+              />
+            </svg></button
+          ><button
+            class="icon-button"
+            id="settings-button"
+            aria-label="Settings"
+            title="Settings"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M4 7h16M4 17h16" />
+              <circle cx="9" cy="7" r="3" />
+              <circle cx="15" cy="17" r="3" />
+            </svg></button
+          ><button
+            class="icon-button"
+            id="pause-button"
+            aria-label="Pause game"
+            title="Pause · Esc"
+            disabled
+          >
+            <svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" /></svg>
+          </button>
+        </div>
+      </header>
+      <main id="solo-layout" class="play-layout">
+        <aside class="sidebar sidebar-left">
+          <div id="solo-player" class="solo-player"></div>
+          <section class="hold-panel">
+            <div class="section-label">HOLD <kbd>C</kbd></div>
+            <canvas
+              id="hold-canvas"
+              class="hold-canvas"
+              aria-label="Held piece"
+            ></canvas
+            ><span id="hold-hint" class="hold-hint"></span>
+          </section>
+          <section class="score-panel">
+            <div class="section-label">SCORE</div>
+            <div id="score" class="score">0</div>
+            <div class="personal-best">
+              <span>PERSONAL BEST</span><span id="best">0</span>
+            </div>
+          </section>
+          <section class="stats">
+            <div>
+              <span class="section-label">LEVEL</span
+              ><strong id="level">01</strong>
+            </div>
+            <div>
+              <span class="section-label">LINES</span
+              ><strong id="lines">0</strong>
+            </div>
+          </section>
+          <section class="progress-section">
+            <div class="progress-track"><i id="progress"></i></div>
+            <div id="progress-label">10 LINES TO LEVEL 2</div>
+          </section>
+          <div class="time-panel">
+            <span class="section-label">TIME</span><span id="time">00:00</span>
+          </div>
+        </aside>
+        <section class="board-column" aria-label="Game board">
+          <div class="board-heading">
+            <span
+              ><i class="live-dot"></i
+              ><span id="board-mode">MARATHON</span></span
+            >
+          </div>
+          <div class="canvas-wrap">
+            <canvas
+              id="game-canvas"
+              aria-label="Tetris playfield, 10 columns by 20 rows"
+            ></canvas>
+            <div
+              id="announcement"
+              class="announcement"
+              aria-live="polite"
+            ></div>
+            <div id="countdown" class="countdown" hidden></div>
+          </div>
+          <div class="board-bottom"><span id="chain-label"></span></div>
+        </section>
+        <aside class="sidebar sidebar-right">
+          <section class="next-panel">
+            <div class="section-label">
+              UP NEXT <span class="tiny">05</span>
+            </div>
+            <div class="next-list">
+              <canvas class="next-canvas" aria-label="Next piece 1"></canvas
+              ><canvas class="next-canvas" aria-label="Next piece 2"></canvas
+              ><canvas class="next-canvas" aria-label="Next piece 3"></canvas
+              ><canvas class="next-canvas" aria-label="Next piece 4"></canvas
+              ><canvas class="next-canvas" aria-label="Next piece 5"></canvas>
+            </div>
+          </section>
+        </aside>
+      </main>
+      <main id="duo-layout" class="duo-layout" hidden>
+        <div class="duo-banner"><strong id="duo-standing">Tied</strong></div>
+        <div id="duo-boards" class="duo-boards"></div>
+      </main>
+      <footer id="solo-controls" class="controls">
+        <span><kbd>←</kbd><kbd>→</kbd> MOVE</span
+        ><span><kbd class="wide">SPACE</kbd><kbd>X</kbd> ROTATE</span
+        ><span><kbd>Z</kbd> REVERSE</span><span><kbd>↓</kbd> SOFT DROP</span
+        ><span><kbd>↑</kbd> HARD DROP</span><span><kbd>C</kbd> HOLD</span
+        ><span><kbd>ESC</kbd> PAUSE</span>
+      </footer>
+      <footer id="duo-controls" class="duo-controls" hidden>
+        <div>
+          <b>P1</b> <kbd>←</kbd><kbd>→</kbd><kbd>↓</kbd> MOVE · <kbd>SPACE</kbd
+          ><kbd>Z</kbd> ROTATE · <kbd>↑</kbd> DROP · <kbd>C</kbd> HOLD
+        </div>
+        <div>
+          <b>P2</b> <kbd>A</kbd><kbd>D</kbd><kbd>S</kbd> MOVE · <kbd>W</kbd
+          ><kbd>Q</kbd> ROTATE · <kbd>F</kbd> DROP · <kbd>E</kbd> HOLD
+        </div>
+      </footer>
+    </div>
+    <div id="menu-screen" class="screen menu-screen">
+      <div class="hero-decoration" aria-hidden="true">
+        <div class="hero-block b1"></div>
+        <div class="hero-block b2"></div>
+        <div class="hero-block b3"></div>
+        <div class="hero-block b4"></div>
+      </div>
+      <div class="menu-content">
+        <h1 class="new-title">block<span>2</span>gether</h1>
+        <div class="play-type" role="group" aria-label="Number of players">
+          <button id="solo-option" class="selected" aria-pressed="true">
+            Solo</button
+          ><button id="duo-option" aria-pressed="false">
+            Play together <span>2P</span>
+          </button>
+        </div>
+        <div id="menu-players" class="menu-players"></div>
+        <div id="storage-note" role="status" hidden></div>
+        <div
+          id="solo-modes"
+          class="mode-options"
+          role="group"
+          aria-label="Game mode"
+        >
+          <button
+            class="mode-card selected"
+            data-mode="marathon"
+            aria-pressed="true"
+          >
+            <span class="mode-symbol">∞</span
+            ><span><strong>Marathon</strong><small>Endless play</small></span
+            ><i class="radio-mark"></i></button
+          ><button class="mode-card" data-mode="sprint" aria-pressed="false">
+            <span class="mode-symbol sprint-symbol">ϟ</span
+            ><span
+              ><strong>40-line sprint</strong
+              ><small>Race against the clock</small></span
+            ><i class="radio-mark"></i>
+          </button>
+        </div>
+        <div id="duo-rules" class="duo-rules" hidden>
+          <span>Highest score wins after both players finish.</span>
+        </div>
+        <div class="menu-device-row">
+          <button id="players-button" class="inline-button">
+            Manage players</button
+          ><button id="controllers-button" class="inline-button">
+            Controllers <span id="controller-count">0 connected</span>
+          </button>
+        </div>
+        <button id="start-button" class="primary-button">
+          Play <span>↗</span>
+        </button>
+        <div class="start-hint">PRESS <kbd>RETURN</kbd> TO BEGIN</div>
+      </div>
+    </div>
+    <div id="dialog-screen" class="screen dialog-screen" hidden>
+      <section
+        id="dialog"
+        class="dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dialog-title"
+      ></section>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

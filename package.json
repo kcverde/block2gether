@@ -1,0 +1,28 @@
+{
+  "name": "block2gether",
+  "version": "1.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "bash scripts/build-mac.sh",
+    "test:browser": "node scripts/verify-browser.mjs && node scripts/verify-duo.mjs && node scripts/verify-profiles.mjs && node scripts/verify-controller-settings.mjs && node scripts/verify-timing.mjs",
+    "test:native": "bash scripts/test-native.sh",
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "format": "prettier --write app scripts tests docs README.md CONTRIBUTING.md .github package.json .prettierrc.json",
+    "format:check": "prettier --check app scripts tests docs README.md CONTRIBUTING.md .github package.json .prettierrc.json"
+  },
+  "devDependencies": {
+    "playwright": "1.65.0",
+    "prettier": "3.10.1"
+  },
+  "description": "An offline macOS falling-block game with solo and local two-player modes.",
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kcverde/block2gether.git"
+  },
+  "license": "MIT"
+}
